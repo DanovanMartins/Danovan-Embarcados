@@ -1,0 +1,2 @@
+Nome: Pato 
+Idade: 10 anos

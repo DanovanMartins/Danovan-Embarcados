@@ -1,0 +1,51 @@
+Data: 23/03/2017
+
+1. Considerando a biblioteca-padrão da linguagem C, responda:
+	(a) Quais são as funções (e seus protótipos) para abrir e fechar arquivos?
+    File *fp
+        fopen -> abrir;
+        fclose -> fechar;
+
+
+	(b) Quais são as funções (e seus protótipos) para escrever em arquivos?
+    File *fp
+        fp = fopen("nome_arquivo.txt", "w");
+
+	(c) Quais são as funções (e seus protótipos) para ler arquivos?
+    File *fp
+        fp = fopen("nome_arquivo.txt", "r");
+
+	(d) Quais são as funções (e seus protótipos) para reposicionar um ponteiro para arquivo?
+        fprintf;
+
+	(e) Quais bibliotecas devem ser incluídas no código para poder utilizar as funções acima?
+        #include <stdio.h>
+
+
+2. O que é a norma POSIX?
+        um padrão para realizar escrita, leitura e criação de arquivos em c.
+
+3. Considerando a norma POSIX, responda:
+	(a) Quais são as funções (e seus protótipos) para abrir e fechar arquivos?
+        int fp ( posix )
+        open -> abrir;
+        close -> fechar;
+
+	(b) Quais são as funções (e seus protótipos) para escrever em arquivos?
+        int fp ( posix )
+        fp = open("nome_arquivo.txt", O_WRONLY | O_CREAT, S_IRWXU);
+
+	(c) Quais são as funções (e seus protótipos) para ler arquivos?
+        int fp ( posix )
+        fp = open("nome_arquivo.txt", O_RDONLY | O_CREAT, S_IRWXU);
+
+	(d) Quais são as funções (e seus protótipos) para reposicionar um ponteiro para arquivo?
+        write;
+
+	(e) Quais bibliotecas devem ser incluídas no código para poder utilizar as funções acima?
+        #include <stdio.h>
+        #include <fcntl.h>
+        #include <unistd.h>
+        #include <stdlib.h>
+
+
