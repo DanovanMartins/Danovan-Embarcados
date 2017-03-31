@@ -1,0 +1,32 @@
+Data: 28/03/2017
+
+1. Como se utiliza o comando 'ps' para:
+	(a) Mostrar todos os processos rodando na máquina?
+	(b) Mostrar os processos de um usuário?
+	(c) Ordenar todos os processos de acordo com o uso da CPU?
+	(d) Mostrar a quanto tempo cada processo está rodando?
+
+a e d;
+
+2. De onde vem o nome fork()?
+
+O fork é uma função que é uma chamada de sistema. Ou seja, ela invoca o sistema operacional para fazer alguma tarefa que o usuário não pode.
+No caso, o fork é usado para criar um novo processo em sistemas do tipo Unix, e isso só pode ser feito via fork.
+
+3. Quais são as vantagens e desvantagens em utilizar:
+	(a) system()?
+		Realiza um comando do sistema durante a execução de código, sendo que há continuidade do programa após sua execução.
+	(b) fork() e exec()?
+		fork gera um processo novo, na qual todas as variáveis são compartilhadas entre os dois processos, onde é possível cada uma executar novas funções com as mesmas variávei, fazendo com que os processos sejão diferentes entre si.
+		exec() finaliza um processo para executar seu próprio comando, após sua execução o processo anterior não tem continuidade, caso não haja outros processos existentes no programa o mesmo será encerrado.
+
+4. É possível utilizar o exec() sem executar o fork() antes?
+Sim, porém o programa será finalizado assim que o exec() for executado.
+
+5. Quais são as características básicas das seguintes funções:
+	(a) execp()? aceita programas que estejam na mesma pasta;
+	(b) execv()? aceita que a lista de argumentos seja nula;
+	(c) exece()? aceita um argumento adicional;
+	(d) execvp()? programas da mesma pasta e lista nula;
+	(e) execve()? lista nula e argumento adicional;
+	(f) execle()? em sua lista de argumentos aceitam mecanismo var args em C
