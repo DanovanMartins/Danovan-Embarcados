@@ -1,0 +1,170 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{inputenc}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+
+\ifCLASSINFOpdf
+\else
+\fi
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+
+\title{ {Despertador Inteligente para Deficientes Auditivos} \\
+  {\Large Ponto de Controle 1}}
+
+\author{\IEEEauthorblockN{Arthur Luís Komatsu Aroeira}
+\IEEEauthorblockA{Engenharia Eletrônica}
+Universidade de Brasília (FGA)\\
+Gama, DF\\
+email: arthuraroeira@yahoo.com.br\\
+\and
+\IEEEauthorblockN{Danovan Martins de Sousa}
+\IEEEauthorblockA{Engenharia Elerônica\\
+Universidade de Brasília (FGA)\\
+Gama, DF\\
+email: danovanmartins93@gmail.com\\
+}}
+\maketitle
+\begin{abstract}
+Este relatório apresenta a proposta do projeto final da matéria Sistemas Embarcados e como implementá-lo. Consiste em um despertador inteligente para deficientes auditivos.
+\\
+Palavras-chaves --- Despertador, sistema embarcado, deficiência auditiva.
+\end{abstract}
+\IEEEpeerreviewmaketitle
+
+\section{Introdução}
+Segundo dados do IBGE de 2013, cerca de 1,1\% da população brasileira sofre algum tipo de deficiência auditiva, dentre dos quais 21\% têm grau intenso ou muito intenso de limitações, o que compromete atividades habituais \cite{mq1}. Uma das dificuldades mais notáveis é a dificuldade de acordar em um determinado horário, já que os despertadores convencionais utilizam um sinal sonoro para despertar o usuário.
+\\
+
+Além disso, há casos em que o deficiente auditivo reside no mesmo local do que pessoas com problemas de saúde, os quais muitas vezes ficam incapazes de alertá-lo em caso de urgência. Isso ocorreu com Samantha, uma aluna com deficiência auditiva da Universidade de Brasília do curso Engenharia Aeroespacial, como descreve seu depoimento obtido com sua autorização a seguir:
+\\
+
+\begin{quote}
+"Meu nome é Samantha e possuo perda de audição profunda. Estou morando sozinha com minha mãe e recentemente passei por uma situação bem chata. Minha mãe está doente, ela tem vomitado muito e ninguém sabe direito o que é. Ela passou mal de madrugada e eu estava dormindo. Eu acordei de manhã com minha mãe deitada no chão, chorando. Ela tinha se arrastado do banheiro até a porta do meu quarto pra me pedir ajuda. Eu não escuto... Se eu pudesse escutar, teria ajudado minha mãe o quanto antes... Mas só pude ajudar quando minha mãe fez o esforço de sair do banheiro, sem forças, pra me pedir ajuda. Eu queria saber se é possível montar algum sistema de alarme pra mim, no qual minha mãe possa me pedir ajuda. Eu fiquei bem chateada por causa disso, pela minha impotência em ajudar, devido à minha audição."
+\end{quote}
+
+Diante disso, o relatório apresenta a proposta de uma solução ao problema.
+
+\section{Objetivos}
+Montar e projetar um dispositivo capaz de realizar a função de um despertador para surdos, no qual haverá um alerta de notificações por meio de vibrações ou áudio, sendo que o usuário poderá configurar a intensidade das vibrações para diferenciar o tipo de notificação. O ambiente de configuração contará com um display gráfico, ao qual o usuário poderá configurar o despertador de forma intuitiva.
+
+\section{Requisitos}
+
+Os seguintes requisitos são esperados para o projeto:
+\begin{itemize}
+	\item Notificação para deficientes auditivos;
+    \item Acionamento remoto para emissão de alertas;
+    \item Inserção de alarmes e eventos;
+    \item Sistema de alerta atrvés de vibrações;
+    \item Inclusão do sistema sonoro;
+
+\end{itemize}
+
+\section{Solução}
+
+A seguir, uma breve explicação dos subsistemas eletrônicos do projeto:
+\\
+
+\subsection{\textbf{Sistema de Interface Gráfica}}
+O despertador contará com uma interface gráfica para o usuário poder ter a liberdade de:
+\begin{itemize}
+	\item Ler o horário atual;
+	\item Alterar data/hora do dispositivo;
+    \item Controlar o sistema de notificações;
+    \item Adicionar/Excluir Alarme;
+    \item Alterar o horário do alarme;
+    \item Alerta de notificação;
+    \item Alerta de emergência;
+    
+\end{itemize}
+Aproveitando-se a saída de vídeo do Raspberry Pi 3, foi escolhido uma tela LCD de 3.2" para a interface gráfica.
+
+\subsection{\textbf{Sistema de Interação com o Usuário}}
+Para o usuário interagir com a interface, há duas meneiras. A primeira opção é utilizando o touchscreen para selecionar as configurações do despertador, já a segunda opção é a utilização de botões para setar as configurações do despertador, que em conjunto com o sistema touchsreen facilita a interação do usuário com o dispositivo. Não foi optado o uso de um teclado devido a poluição visual que implicaria no despertador. O dispostivo será composto de 4 botões, cada um com a respectiva função: 
+
+\begin{itemize}
+	\item \textbf{Botão 1:} Será possível navegar nas configurações do despertador;
+    \item \textbf{Botão 2:} Adicionar parâmetro;
+    \item \textbf{Botão 3:} Reduzir parâmetro;
+    \item \textbf{Botão 4:} Confirmar ação;
+\end{itemize}
+
+\subsection{\textbf{Sistema de Notificação ao Usuário}}
+
+Haverá duas formas de notificação: pelo meio sonoro e vibratório. A pessoa terá liberdade de habilitar e desabilitar cada uma delas. Os dois sistemas estão descritos a seguir:
+
+\subsubsection{\textbf{Sistema de vibração}}
+As vibrações ocorrem por meio de um pequeno motor-dc acoplado a uma carga desbalanceada cuja intensidade pode ser controlada por meio de um sinal PWM. A ideia é inserir o vibrador em uma pequena caixa com fio no qual o usuário poderá inserir confortavelmente embaixo do travesseiro. Assim, ao ser acionado, a cabeça, que é uma parte sensível do corpo, irá vibrar forte o suficiente e, consequentemente, irá despertar a pessoa.
+
+\subsubsection{\textbf{Sistema de som}}
+Aproveitando a saída de áudio do Raspberry Pi, o despertador contará também com um alerta sonoro para caso um usuário sem deficiência auditiva também deseje utilizar seu recurso. Para isso, haverá um pequeno auto-falante acoplado ao amplificador LM386, o qual fornece 125 mW para impedância de 8 $\Omega$ \cite{mq2}, suficiente para os requisitos do projeto.
+
+\subsection{\textbf{Sistema de Acionamento Remoto}}
+
+O dispositivo possuirá um sistema de alerta inteligente, ao qual pode ser acionado por uma pessoa que esteja no mesmo ambiente. O intuito do projeto é auxiliar pessoas com problemas auditivos, desta forma, se houver um parente próximo que esteja desabilitado de saúde ou que necessite de apoio, sendo um caso de emergência ou alguma atividade urgente, basta pressionar um botão que o despertador irá emitir sinais para que uma notificação seja enviada. Para isso, será utilizado um módulo bluetooth compátivel com o Raspberry PI 3, desta forma será possível adotar um mecanismo para enviar, processar e receber informações, desta forma o controle de emição do sinal contará com um botão e um LED.
+\\
+O módulo bluetooth possui custo relativamente baixo, valores próximos ao do módulo RF, porém o bluetooh possui um índice de interferência menor que o do módulo RF básico, desta forma a utilização domódulo bluetooth proporciona um melhor resultado para o dispositivo.
+
+\subsection{\textbf{Controlador Geral}}
+O controlador escolhido para embarcar o sistema foi o Raspberry Pi 3, o qual é um computador que possui um processador ARM de 1.2 GHz 64 bits, 1 Gb de RAM e bluetooth. Ficou popular por ser intuitivo de utilizar, o que fez com que seja utilizado no mundo inteiro em diversos projetos eletrônicos. Possui capacidade de embutir um sistema operacional como o Linux, o que pode tornar o sistema mais estável e com menos memória de uso \cite{mq3}. Sua escolha se justifica pelo fato de conter todos os requisitos exigidos para cada sistema, tais como:
+
+\begin{itemize}
+  \item Possui entradas e saídas digitais as quais podem ser usadas para controle do sistema de interação com o usuário, sistema de vibração e o sistema de acionamento remoto;
+  \item Possui saída de áudio para o sistema de som;
+  \item Possui saída de vídeo para o sistema de interface com o usuário.
+\end{itemize}
+
+Além disso, depois de projetado e testado cada sistema, será confeccionado no final uma \textbf{Placa de Circuito Impresso (PCI)} para conter todos os circuitos de forma compacta.
+
+%o qual por meio de um mecanismo de comunicação, pode-se %controlar as ações exercidas do despertador para a pulseira. %Desta forma, o usuário terá livre liberdade para estar em %acomodações próximas ao despertador, desde que esteja dentro dos %limites estabelecidos pelo manual do dispositivo.
+
+\section{Custos}
+
+A tabela \ref{my-label} a seguir mostra uma estimativa dos custos necessários para a elaboração do projeto:
+
+\begin{table}[H]
+\centering
+\caption{Tabela de Custos}
+\label{my-label}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Material}                                                                                 & \textbf{Valor Uni.} & \textbf{Qtde} & \textbf{Total} & \textbf{Fornecedor} \\ \hline
+Raspberry Pi 3                                                                                    & R\$ 200           & 1             & R\$ 200      & Eletrojun           \\ \hline
+Tela LCD 3.2"                                                                                     & R\$ 100           & 1             & R\$ 100      & Mercadolivre        \\ \hline
+Motor DC                                                                                          & R\$ 10           & 1              & R\$ 10       & Huinfinito          \\ \hline
+Bluetooth                     & R\$ 35       &1              & R\$ 35        & Huinfinito          \\ \hline
+\begin{tabular}[c]{@{}c@{}}PCI \\20cm x 20cm\end{tabular} & R\$ 20            & 1             & R\$ 20       & Huinfinito          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Auto falante \\  0.5 W 8 $\Omega$   \end{tabular} & R\$ 10            & 1            & R\$ 10       & Huinfinito          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Componentes \\ gerais\\ (resistores, \\ capacitores, ...)\end{tabular} & -            & -             & R\$ 20       & Huinfinito          \\ \hline
+\textbf{Total}                                                                                    & \multicolumn{4}{c|}{\textbf{R\$ 395,00}}                                             \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Conclusão}
+
+Conforme foi listado no depoimento, há uma grande necessidade na implementação de um sistema que emita alertas para pessoas que possuem algum tipo de problema auditivo. Através do dispotivo despertador inteligente para deficientes auditivos é possível emitir alertas que ajuadam a monitorar atividades, desde tarefas básicas até uma situação com caráter emergencial. Desta forma é possível auxíliar pessoas que estejam com a audição parcialmente ou completamente comprometida.
+
+\begin{thebibliography}{1}
+
+\bibitem{mq1}VILLELA, Flávia. \textbf{IBGE: 6,2\% da população têm algum tipo de deficiência}. Agência Brasil, 2015. Disponível em <http://agenciabrasil.ebc.com.br/geral/noticia/2015-08/ibge-62-da-populacao-tem-algum-tipo-de-deficiencia>. Acesso em 02 de abril de 2017.
+
+\bibitem{mq2}TEXAS INSTRUMENTS. \textbf{LM386 Datasheet}. Disponível em <http://www.ti.com/lit/ds/symlink/lm386.pdf>. Acesso em 03 de abril de 2017.
+ONE
+\bibitem{mq3} The MagPi Magazine. \textbf{Eben Upton talks Raspberry Pi 3}. Disponível em <https://www.raspberrypi.org/magpi/pi-3-interview/>. Acesso em 03 de abril de 2017.
+
+\end{thebibliography}
+
+\end{document}
+
